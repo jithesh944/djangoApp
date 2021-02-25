@@ -18,6 +18,8 @@ from users import views as user_views
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from django.conf.urls import url 
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 
@@ -29,3 +31,7 @@ urlpatterns = [
     path('login/',auth_views.LoginView.as_view(template_name='users/login.html') ,name='login'),
     path('logout/',auth_views.LogoutView.as_view(template_name='users/logout.html'),name='logout'),
 ]
+
+# here the below code cahnges are only work in development region, since DEBUG will be TRUE. For prod , we cnanot use this
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
